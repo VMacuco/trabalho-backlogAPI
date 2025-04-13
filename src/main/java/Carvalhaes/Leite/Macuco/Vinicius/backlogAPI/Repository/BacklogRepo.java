@@ -116,10 +116,8 @@ public class BacklogRepo {
     public List<BacklogItem> getBacklogPorTag(List<String> tags) {
         List<BacklogItem> backlogPorTag = new ArrayList<>();
         for (BacklogItem item : backlog) {
-            for (String tag : tags) {
-                if (item.getTags().contains(tag)) {
-                    backlogPorTag.add(item);
-                }
+            if (item.getTags().containsAll(tags)) {
+                backlogPorTag.add(item);
             }
         }
         return backlogPorTag;
@@ -130,10 +128,8 @@ public class BacklogRepo {
         List<BacklogItem> backlogPorTipoETag = new ArrayList<>();
         for (BacklogItem item : backlog) {
             if (item.getTipo().equals(tipo)) {
-                for (String tag : tags) {
-                    if (item.getTags().contains(tag)) {
-                        backlogPorTipoETag.add(item);
-                    }
+                if (item.getTags().containsAll(tags)) {
+                    backlogPorTipoETag.add(item);
                 }
             }
         }

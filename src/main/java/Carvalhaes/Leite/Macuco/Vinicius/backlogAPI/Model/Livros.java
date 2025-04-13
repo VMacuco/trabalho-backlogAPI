@@ -1,4 +1,6 @@
 
+package Carvalhaes.Leite.Macuco.Vinicius.backlogAPI.Model;
+
 import java.util.List;
 
 public class Livros extends BacklogItem {

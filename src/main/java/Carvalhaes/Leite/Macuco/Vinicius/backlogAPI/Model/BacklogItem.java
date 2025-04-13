@@ -1,3 +1,5 @@
+package Carvalhaes.Leite.Macuco.Vinicius.backlogAPI.Model;
+
 // A classe BacklogItem represeta um item do backlog, seja ele um jogo ou um livro
 import java.util.ArrayList;
 import java.util.List;
@@ -57,6 +59,9 @@ public class BacklogItem {
     }
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+    public boolean getStatus() {
+        return status;
     }
     public void changeStatus() {
         if (this.status) {

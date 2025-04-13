@@ -1,7 +1,6 @@
 package Carvalhaes.Leite.Macuco.Vinicius.backlogAPI.Model;
 
 import java.util.List;
-import Carvalhaes.Leite.Macuco.Vinicius.backlogAPI.Model.BacklogItem;
 
 
 
