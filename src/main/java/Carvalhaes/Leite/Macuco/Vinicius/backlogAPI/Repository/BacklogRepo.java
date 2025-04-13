@@ -13,7 +13,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class BacklogRepo {
     private final List<BacklogItem> backlog = new ArrayList<>();
-    private final List<String> tags = new ArrayList<>();
 
     
     //Mostra todos os itens do backlog, independente do status
@@ -55,17 +54,17 @@ public class BacklogRepo {
     } 
 
     //Mostra todos os itens do backlog que foram lidos ou jogados
-    public List<BacklogItem> getBacklogLido() {
-        List<BacklogItem> backlogLido = new ArrayList<>();
+    public List<BacklogItem> getBacklogConcluido() {
+        List<BacklogItem> backlogConcluido = new ArrayList<>();
         for (BacklogItem item : backlog) {
             if (item.getStatus()) {
-                backlogLido.add(item);
+                backlogConcluido.add(item);
             }
         }
-        if (backlogLido.isEmpty()) {
+        if (backlogConcluido.isEmpty()) {
             return null;
         }
-        return backlogLido;
+        return backlogConcluido;
     }
 
     //Muda o status de um item do backlog ao passar seu nome
@@ -124,6 +123,21 @@ public class BacklogRepo {
             }
         }
         return backlogPorTag;
+    }
+
+    //Retorna uma sublista do backlog com todos os itens que possuem o tipo e as tags passadas como parâmetro
+    public List<BacklogItem> getBacklogPorTipoETag(String tipo, List<String> tags) {
+        List<BacklogItem> backlogPorTipoETag = new ArrayList<>();
+        for (BacklogItem item : backlog) {
+            if (item.getTipo().equals(tipo)) {
+                for (String tag : tags) {
+                    if (item.getTags().contains(tag)) {
+                        backlogPorTipoETag.add(item);
+                    }
+                }
+            }
+        }
+        return backlogPorTipoETag;
     }
 
 }
