@@ -1,8 +1,11 @@
 package Carvalhaes.Leite.Macuco.Vinicius.backlogAPI.Model;
 
+import java.util.List;
+import Carvalhaes.Leite.Macuco.Vinicius.backlogAPI.Model.BacklogItem;
 
 
-public class Jogo extends BackLogItem {
+
+public class Jogo extends BacklogItem {
     private String plataforma; //plataforma do jogo. As plataformas podem ser: PS4, PS5, Xbox One, Xbox Series X, Nintendo Switch, PC, etc.
     private String desenvolvedora; //desenvolvedora do jogo. As desenvolvedoras podem ser: Ubisoft, EA, Activision, etc.
     private String anoLancamento; //ano de lançamento do jogo. O ano de lançamento pode ser: 2020, 2021, 2022, etc.

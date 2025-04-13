@@ -2,7 +2,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class BackLogItem {
+public class BacklogItem {
     private String nome; //nome do item
     private String descricao; //descricao do item
     private String tipo; //define se o item é um jogo ou um livro, para facilitar a pesquisa futura
@@ -10,7 +10,7 @@ public class BackLogItem {
     private boolean status; //status do item, . Os status podem ser: lido, jogado (true) ou não lido, não jogado (false).
 
     //construtor para criar um item com nome, descricao e uma tag para começar
-    public BackLogItem(String nome, String descricao, String tag) {
+    public BacklogItem(String nome, String descricao, String tag) {
         this.nome = nome;
         this.descricao = descricao;
         this.tags = new ArrayList<>();
@@ -18,7 +18,7 @@ public class BackLogItem {
         this.status = false; //status padrão é false, ou seja, não lido, não jogado
     }
     //construtor para criar um item com nome, descricao e uma lista de tags
-    public BackLogItem(String nome, String descricao, List<String> tags) {
+    public BacklogItem(String nome, String descricao, List<String> tags) {
         this.nome = nome;
         this.descricao = descricao;
         this.tags = new ArrayList<>(tags);
