@@ -30,6 +30,16 @@ public class BacklogRepo {
         return item;
     }
 
+    //Remove um item do backlog ao passar seu nome
+    public void deletarPorNome(String nome) {
+        for (BacklogItem item : backlog) {
+            if (item.getNome().equals(nome)) {
+                backlog.remove(item);
+                return;
+            }
+        }
+    }
+
     //Mostra todos os itens do backlog que não foram lidos ou jogados
     public List<BacklogItem> getBacklog() {
         List<BacklogItem> backlogVerdadeiro = new ArrayList<>();
