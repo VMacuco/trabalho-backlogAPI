@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 import java.util.List; 
@@ -89,7 +90,7 @@ public class BacklogController {
     }
     //Pegar todos os itens que possuam uma lista de tags específica
     @GetMapping("/tags")
-    public ResponseEntity<List<BacklogItem>> getBacklogTags(@RequestBody List<String> tags) {
+    public ResponseEntity<List<BacklogItem>> getBacklogTags(@RequestParam List<String> tags) {
         List<BacklogItem> backlog = backlogRepo.getBacklogPorTag(tags);
         if (backlog == null) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -98,7 +99,7 @@ public class BacklogController {
     }
     //Pegar todos os itens de um tipo que possuam uma lista de tags específica
     @GetMapping("/jogos/tags")
-    public ResponseEntity<List<BacklogItem>> getBacklogJogoTags(@RequestBody List<String> tags) {
+    public ResponseEntity<List<BacklogItem>> getBacklogJogoTags(@RequestParam List<String> tags) {
         List<BacklogItem> backlog = backlogRepo.getBacklogPorTipoETag("Jogo", tags);
         if (backlog == null) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -106,7 +107,7 @@ public class BacklogController {
         return new ResponseEntity<>(backlog, HttpStatus.OK);
     }
     @GetMapping("/livros/tags")
-    public ResponseEntity<List<BacklogItem>> getBacklogLivroTags(@RequestBody List<String> tags) {
+    public ResponseEntity<List<BacklogItem>> getBacklogLivroTags(@RequestParam List<String> tags) {
         List<BacklogItem> backlog = backlogRepo.getBacklogPorTipoETag("Livro", tags);
         if (backlog == null) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
