@@ -5,6 +5,7 @@ import Carvalhaes.Leite.Macuco.Vinicius.backlogAPI.Model.BacklogItem;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Repository;
 
@@ -70,7 +71,7 @@ public class BacklogRepo {
     //Muda o status de um item do backlog ao passar seu nome
     public BacklogItem mudarStatusDoItem(String nome) {
         for (BacklogItem item : backlog) {
-            if (item.getNome().equals(nome)) {
+            if (item.getNome().equalsIgnoreCase(nome)) {
                 item.changeStatus();
                 return item;
             }
@@ -81,7 +82,7 @@ public class BacklogRepo {
     //Remove um item do backlog ao passar seu nome
     public BacklogItem removeBacklogItem(String nome) {
         for (BacklogItem item : backlog) {
-            if (item.getNome().equals(nome)) {
+            if (item.getNome().equalsIgnoreCase(nome)) {
                 backlog.remove(item);
                 return item;
             }
@@ -91,15 +92,13 @@ public class BacklogRepo {
 
     //Remove todos os itens concluidos do backlog
     public List<BacklogItem> removeBacklogConcluidos() {
-        List<BacklogItem> backlogConcluidos = new ArrayList<>();
-        for (BacklogItem item : backlog) {
-            if (item.getStatus()) {
-                backlogConcluidos.add(item);
-                backlog.remove(item);
-            }
-        }
-        return backlogConcluidos;
-    }
+    List<BacklogItem> concluidos = backlog.stream()
+            .filter(BacklogItem::getStatus)
+            .collect(Collectors.toList());
+            
+    backlog.removeAll(concluidos);
+    return concluidos;
+}
 
     //Retorna uma sublista do backlog com os itens que possuem o tipo passada como parâmetro, ou seja, retorna somente os livros ou somente os jogos
     //O tipo pode ser "Livro" ou "Jogo"
@@ -139,7 +138,7 @@ public class BacklogRepo {
     //Retorna um item do backlog ao passar seu nome
     public BacklogItem getNome(String nome) {
         for (BacklogItem item : backlog) {
-            if (item.getNome().equals(nome)) {
+            if (item.getNome().equalsIgnoreCase(nome)) {
                 return item;
             }
         }
@@ -149,12 +148,31 @@ public class BacklogRepo {
     //Adiociona tags a um item do backlog ao passar seu nome
     public BacklogItem addTag(String nome, String tag) {
         for (BacklogItem item : backlog) {
-            if (item.getNome().equals(nome)) {
+            if (item.getNome().equalsIgnoreCase(nome)) {
                 item.addTag(tag);
                 return item;
             }
         }
         return null;
+    }
+
+    public BacklogItem findAndRemoveItem(String nome) {
+        BacklogItem itemParaRemover = null;
+        
+        // Encontra o item
+        for (BacklogItem item : backlog) {
+            if (item.getNome().equals(nome)) {
+                itemParaRemover = item;
+                break;
+            }
+        }
+        
+        // Se encontrou, remove
+        if (itemParaRemover != null) {
+            backlog.remove(itemParaRemover);
+        }
+        
+        return itemParaRemover;
     }
 
 }

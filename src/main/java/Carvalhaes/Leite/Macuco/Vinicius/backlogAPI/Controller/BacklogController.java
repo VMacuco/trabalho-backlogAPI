@@ -4,6 +4,7 @@ import Carvalhaes.Leite.Macuco.Vinicius.backlogAPI.Model.BacklogItem;
 import Carvalhaes.Leite.Macuco.Vinicius.backlogAPI.Model.Jogo;
 import Carvalhaes.Leite.Macuco.Vinicius.backlogAPI.Model.Livros;
 import Carvalhaes.Leite.Macuco.Vinicius.backlogAPI.Repository.BacklogRepo;
+import net.bytebuddy.dynamic.DynamicType.Builder.FieldDefinition.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -117,35 +118,38 @@ public class BacklogController {
     
     //Muda o status de um item do backlog
     @PatchMapping("/alterar-status")
-    public ResponseEntity<BacklogItem> mudarStatus(@RequestBody String nome) {
+    public ResponseEntity<BacklogItem> mudarStatus(@RequestParam String nome) {
         BacklogItem item = backlogRepo.getNome(nome);
         if (item == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return ResponseEntity.notFound().build();
         }
         item.changeStatus();
-        return new ResponseEntity<>(item, HttpStatus.OK);
-    }
+        return ResponseEntity.ok(item);
+}
     
     //Deletar todos os itens marcados como concluidos do backlog
     @DeleteMapping("/deletar-concluidos")
     public ResponseEntity<List<BacklogItem>> deletarConcluidos() {
         List<BacklogItem> deletados = backlogRepo.removeBacklogConcluidos();
-        return new ResponseEntity<>(deletados, HttpStatus.OK);
+        if (deletados.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(deletados);
     }
     //Deletar um item do backlog por nome
     @DeleteMapping("/deletar/{nome}")
     public ResponseEntity<BacklogItem> deletarPorNome(@PathVariable String nome) {
-        BacklogItem item = backlogRepo.getNome(nome);
-        if (item == null) {
+        BacklogItem itemRemovido = backlogRepo.findAndRemoveItem(nome);
+    
+        if (itemRemovido == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        backlogRepo.removeBacklogItem(nome);
-        return new ResponseEntity<>(item, HttpStatus.OK);
-    }
-
+    
+        return new ResponseEntity<>(itemRemovido, HttpStatus.OK);
+    }    
     //Adicionar uma tag a um item do backlog
-    @PatchMapping("/adicionar-tag/{nome}")
-    public ResponseEntity<BacklogItem> adicionarTag(@PathVariable String nome, @RequestBody String tag) {
+    @PatchMapping("/adicionar-tag/")
+    public ResponseEntity<BacklogItem> adicionarTag(@RequestParam String nome, @RequestParam String tag) {
         BacklogItem item = backlogRepo.getNome(nome);
         if (item == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
