@@ -4,6 +4,8 @@ package Carvalhaes.Leite.Macuco.Vinicius.backlogAPI.Model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class BacklogItem {
     private String nome; //nome do item
     private String descricao; //descricao do item
@@ -43,17 +45,7 @@ public class BacklogItem {
         return tags;
     }
     public void addTag(String tag) {
-        if(tag == null || tag.isEmpty()) {
-            this.tags.add(tag); // Adiciona a tag se não existir
-        }
-        else{
-            for (String t : this.tags) {
-                if (t.equals(tag)) {
-                    return; // Se a tag já existe, não adiciona novamente
-                }
-            }
-            this.tags.add(tag); // Adiciona a tag se não existir
-        }
+        setSingleTag(tag); // Adiciona a tag se não existir
     }
     public void removeTag(String tag) {
         this.tags.remove(tag);
@@ -73,6 +65,19 @@ public class BacklogItem {
         } else {
             this.status = true; //se o status for false, muda para true
         }
+    }
+
+    @JsonProperty("tag")//Mapeia o campo singular
+    private void setSingleTag(String tag){
+        if (this.tags == null){
+            this.tags = new ArrayList<>();
+        }
+        this.tags.add(tag); // Adiciona a tag se não existir
+    }
+
+    @JsonProperty("tags")//Mapeia o campo plural
+    private void setTags(List<String> tags){
+        this.tags = new ArrayList<>(tags);
     }
     
 }
