@@ -43,12 +43,17 @@ public class BacklogItem {
         return tags;
     }
     public void addTag(String tag) {
-        for (String t : this.tags) {
-            if (t.equals(tag)) {
-                return; // Se a tag já existe, não adiciona novamente
-            }
+        if(tag == null || tag.isEmpty()) {
+            this.tags.add(tag); // Adiciona a tag se não existir
         }
-        this.tags.add(tag);
+        else{
+            for (String t : this.tags) {
+                if (t.equals(tag)) {
+                    return; // Se a tag já existe, não adiciona novamente
+                }
+            }
+            this.tags.add(tag); // Adiciona a tag se não existir
+        }
     }
     public void removeTag(String tag) {
         this.tags.remove(tag);
