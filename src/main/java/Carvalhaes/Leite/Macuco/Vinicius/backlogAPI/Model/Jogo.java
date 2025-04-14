@@ -16,13 +16,7 @@ public class Jogo extends BacklogItem {
         this.anoLancamento = anoLancamento;
         this.setTipo("Jogo");
     }
-    public Jogo(String nome, String descricao, List<String> tags, String plataforma, String desenvolvedora, String anoLancamento) {
-        super(nome, descricao, tags);
-        this.plataforma = plataforma;
-        this.desenvolvedora = desenvolvedora;
-        this.anoLancamento = anoLancamento;
-        this.setTipo("Jogo");
-    }
+    
     //gets e sets para os atributos
     public String getPlataforma() {
         return plataforma;

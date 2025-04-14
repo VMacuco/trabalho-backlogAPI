@@ -146,4 +146,15 @@ public class BacklogRepo {
         return null;
     }
 
+    //Adiociona tags a um item do backlog ao passar seu nome
+    public BacklogItem addTag(String nome, String tag) {
+        for (BacklogItem item : backlog) {
+            if (item.getNome().equals(nome)) {
+                item.addTag(tag);
+                return item;
+            }
+        }
+        return null;
+    }
+
 }

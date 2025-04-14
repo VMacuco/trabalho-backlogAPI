@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -70,7 +71,7 @@ public class BacklogController {
     }
     
     //Pegar todos os itens de um tipo específico
-    @GetMapping("/tipo/jogo")
+    @GetMapping("/jogos")
     public ResponseEntity<List<BacklogItem>> getBacklogJogo() {
         List<BacklogItem> backlog = backlogRepo.getBacklogPorTipo("Jogo");
         if (backlog == null) {
@@ -78,7 +79,7 @@ public class BacklogController {
         }
         return new ResponseEntity<>(backlog, HttpStatus.OK);
     }
-    @GetMapping("/tipo/livro")
+    @GetMapping("/livros")
     public ResponseEntity<List<BacklogItem>> getBacklogLivro() {
         List<BacklogItem> backlog = backlogRepo.getBacklogPorTipo("Livro");
         if (backlog == null) {
@@ -96,7 +97,7 @@ public class BacklogController {
         return new ResponseEntity<>(backlog, HttpStatus.OK);
     }
     //Pegar todos os itens de um tipo que possuam uma lista de tags específica
-    @GetMapping("/tipo/jogo/tags")
+    @GetMapping("/jogos/tags")
     public ResponseEntity<List<BacklogItem>> getBacklogJogoTags(@RequestBody List<String> tags) {
         List<BacklogItem> backlog = backlogRepo.getBacklogPorTipoETag("Jogo", tags);
         if (backlog == null) {
@@ -104,7 +105,7 @@ public class BacklogController {
         }
         return new ResponseEntity<>(backlog, HttpStatus.OK);
     }
-    @GetMapping("/tipo/livro/tags")
+    @GetMapping("/livros/tags")
     public ResponseEntity<List<BacklogItem>> getBacklogLivroTags(@RequestBody List<String> tags) {
         List<BacklogItem> backlog = backlogRepo.getBacklogPorTipoETag("Livro", tags);
         if (backlog == null) {
@@ -131,13 +132,24 @@ public class BacklogController {
         return new ResponseEntity<>(deletados, HttpStatus.OK);
     }
     //Deletar um item do backlog por nome
-    @DeleteMapping("/deletar")
-    public ResponseEntity<BacklogItem> deletarPorNome(@RequestBody String nome) {
+    @DeleteMapping("/deletar/{nome}")
+    public ResponseEntity<BacklogItem> deletarPorNome(@PathVariable String nome) {
         BacklogItem item = backlogRepo.getNome(nome);
         if (item == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         backlogRepo.removeBacklogItem(nome);
+        return new ResponseEntity<>(item, HttpStatus.OK);
+    }
+
+    //Adicionar uma tag a um item do backlog
+    @PatchMapping("/adicionar-tag/{nome}")
+    public ResponseEntity<BacklogItem> adicionarTag(@PathVariable String nome, @RequestBody String tag) {
+        BacklogItem item = backlogRepo.getNome(nome);
+        if (item == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        item.addTag(tag);
         return new ResponseEntity<>(item, HttpStatus.OK);
     }
 

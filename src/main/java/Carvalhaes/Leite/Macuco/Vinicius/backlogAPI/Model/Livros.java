@@ -18,15 +18,6 @@ public class Livros extends BacklogItem {
         this.setTipo("Livro");
     }
 
-    public Livros(String nome, String descricao, List<String> tags, String autor, String editora, String lingua, String anoLancamento) {
-        super(nome, descricao, tags);
-        this.autor = autor;
-        this.editora = editora;
-        this.lingua = lingua;
-        this.anoLancamento = anoLancamento;
-        this.setTipo("Livro");
-    }
-
     //gets e sets para os atributos
     public String getAutor() {
         return autor;
