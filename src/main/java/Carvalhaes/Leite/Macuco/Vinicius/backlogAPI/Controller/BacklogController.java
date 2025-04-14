@@ -4,7 +4,6 @@ import Carvalhaes.Leite.Macuco.Vinicius.backlogAPI.Model.BacklogItem;
 import Carvalhaes.Leite.Macuco.Vinicius.backlogAPI.Model.Jogo;
 import Carvalhaes.Leite.Macuco.Vinicius.backlogAPI.Model.Livros;
 import Carvalhaes.Leite.Macuco.Vinicius.backlogAPI.Repository.BacklogRepo;
-import net.bytebuddy.dynamic.DynamicType.Builder.FieldDefinition.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
