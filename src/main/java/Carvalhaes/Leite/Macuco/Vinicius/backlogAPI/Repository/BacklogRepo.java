@@ -36,7 +36,7 @@ public class BacklogRepo {
     //Remove um item do backlog ao passar seu nome
     public void deletarPorNome(String nome) {
         for (BacklogItem item : backlog) {
-            if (item.getNome().equals(nome)) {
+            if (item.getNome().equalsIgnoreCase(nome)) {
                 backlog.remove(item);
                 return;
             }
@@ -76,17 +76,6 @@ public class BacklogRepo {
         for (BacklogItem item : backlog) {
             if (item.getNome().equalsIgnoreCase(nome)) {
                 item.changeStatus();
-                return item;
-            }
-        }
-        return null;
-    }
-
-    //Remove um item do backlog ao passar seu nome
-    public BacklogItem removeBacklogItem(String nome) {
-        for (BacklogItem item : backlog) {
-            if (item.getNome().equalsIgnoreCase(nome)) {
-                backlog.remove(item);
                 return item;
             }
         }
