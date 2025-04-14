@@ -136,4 +136,14 @@ public class BacklogRepo {
         return backlogPorTipoETag;
     }
 
+    //Retorna um item do backlog ao passar seu nome
+    public BacklogItem getNome(String nome) {
+        for (BacklogItem item : backlog) {
+            if (item.getNome().equals(nome)) {
+                return item;
+            }
+        }
+        return null;
+    }
+
 }
