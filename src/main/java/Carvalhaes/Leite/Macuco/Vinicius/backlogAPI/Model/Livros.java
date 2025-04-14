@@ -9,6 +9,11 @@ public class Livros extends BacklogItem {
     private String lingua; //lingua do livro. As linguas podem ser: português, inglês, espanhol, etc.
     private String anoLancamento; //ano de lançamento do livro. O ano de lançamento pode ser: 2020, 2021, 2022, etc.
 
+    public Livros() {
+        super();
+        this.setTipo("Livro");
+    }
+    
     public Livros(String nome, String descricao, String tag, String autor, String editora, String lingua, String anoLancamento) {
         super(nome, descricao, tag);
         this.autor = autor;

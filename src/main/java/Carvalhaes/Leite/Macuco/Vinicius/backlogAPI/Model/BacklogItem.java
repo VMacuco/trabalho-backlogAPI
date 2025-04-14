@@ -12,18 +12,17 @@ public class BacklogItem {
     private boolean status; //status do item, . Os status podem ser: lido, jogado (true) ou não lido, não jogado (false).
 
     //construtor para criar um item com nome, descricao e uma tag para começar
+    public BacklogItem(){
+        this.tags = new ArrayList<>();
+        this.status = false; //status padrão é false, ou seja, não lido, não jogado
+    }
+    
     public BacklogItem(String nome, String descricao, String tag) {
         this.nome = nome;
         this.descricao = descricao;
         this.tags = new ArrayList<>();
         tags.add(tag);
         this.status = false; //status padrão é false, ou seja, não lido, não jogado
-    }
-    //construtor para criar um item com nome, descricao e uma lista de tags
-    public BacklogItem(String nome, String descricao, List<String> tags) {
-        this.nome = nome;
-        this.descricao = descricao;
-        this.tags = new ArrayList<>(tags);
     }
 
     //gets e sets para os atributos

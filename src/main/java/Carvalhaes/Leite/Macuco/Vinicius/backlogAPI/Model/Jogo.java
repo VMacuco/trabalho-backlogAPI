@@ -9,6 +9,11 @@ public class Jogo extends BacklogItem {
     private String desenvolvedora; //desenvolvedora do jogo. As desenvolvedoras podem ser: Ubisoft, EA, Activision, etc.
     private String anoLancamento; //ano de lançamento do jogo. O ano de lançamento pode ser: 2020, 2021, 2022, etc.
 
+    public Jogo() {
+        super();
+        this.setTipo("Jogo");
+    }
+    
     public Jogo(String nome, String descricao, String tag, String plataforma, String desenvolvedora, String anoLancamento) {
         super(nome, descricao, tag);
         this.plataforma = plataforma;
