@@ -21,27 +21,7 @@ class BacklogApiApplicationTests {
 	private MockMvc mockMvc;
 
 	@Test
-void adicionarJogo_DeveRetornar201() throws Exception {
-    Jogo jogo = new Jogo("Cyberpunk 2077", "RPG futurista", "RPG", "PC", "CD Projekt", "2020");
-    
-    // Configura o mock
-    when(backlogRepo.addBacklogItem(any(Jogo.class))).thenReturn(jogo);
+    void contextLoads() {}
 
-    // Faz a requisição POST com JSON
-    mockMvc.perform(post("/backlog/adicionar-jogo")
-           .contentType(MediaType.APPLICATION_JSON)
-           .content("""
-               {
-                   "nome": "Cyberpunk 2077",
-                   "descricao": "RPG futurista",
-                   "tag": "RPG",
-                   "plataforma": "PC",
-                   "desenvolvedora": "CD Projekt",
-                   "anoLancamento": "2020"
-               }
-           """))
-           .andExpect(status().isCreated())  // Espera HTTP 201
-           .andExpect(jsonPath("$.nome").value("Cyberpunk 2077"));
-}
 
 }

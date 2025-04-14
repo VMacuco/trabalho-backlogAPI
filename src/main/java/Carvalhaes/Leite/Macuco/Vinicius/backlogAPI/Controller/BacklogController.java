@@ -137,8 +137,8 @@ public class BacklogController {
         return ResponseEntity.ok(deletados);
     }
     //Deletar um item do backlog por nome
-    @DeleteMapping("/deletar/{nome}")
-    public ResponseEntity<BacklogItem> deletarPorNome(@PathVariable String nome) {
+    @DeleteMapping("/deletar/")
+    public ResponseEntity<BacklogItem> deletarPorNome(@RequestParam String nome) {
         BacklogItem itemRemovido = backlogRepo.findAndRemoveItem(nome);
     
         if (itemRemovido == null) {

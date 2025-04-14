@@ -18,14 +18,17 @@ public class BacklogRepo {
     
     //Mostra todos os itens do backlog, independente do status
     public List<BacklogItem> getAllBacklog() {
-        if (backlog.isEmpty()) {
-            return null;
-        }
-        return backlog;
+        return new ArrayList<>(backlog); // Retorna cópia imutávelv 
     }
 
     //Adiciona um item ao backlog
     public BacklogItem addBacklogItem(BacklogItem item) {
+        if (item == null) {
+            throw new IllegalArgumentException("Item não pode ser nulo");
+        }
+        if (getNome(item.getNome()) != null) {
+            throw new IllegalStateException("Item já existe no backlog");
+        }
         backlog.add(item);
         return item;
     }

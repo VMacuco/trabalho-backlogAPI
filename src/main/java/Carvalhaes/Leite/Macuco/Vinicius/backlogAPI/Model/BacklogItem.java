@@ -20,7 +20,7 @@ public class BacklogItem {
     }
     
     public BacklogItem(String nome, String descricao, String tag) {
-        this.nome = nome;
+        setNome(nome);
         this.descricao = descricao;
         this.tags = new ArrayList<>();
         tags.add(tag);
@@ -52,6 +52,9 @@ public class BacklogItem {
         this.tags.remove(tag);
     }
     public void setNome(String nome) {
+        if (nome == null || nome.trim().isEmpty()) {
+            throw new IllegalArgumentException("Nome não pode ser vazio.");
+        }
         this.nome = nome;
     }
     public void setDescricao(String descricao) {

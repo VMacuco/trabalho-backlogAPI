@@ -1,7 +1,7 @@
 package Carvalhaes.Leite.Macuco.Vinicius.backlogAPI.Model;
 
 import java.util.List;
-
+//Representa um jogo no backlog, herda os atributod de baklogItem
 
 
 public class Jogo extends BacklogItem {
@@ -18,7 +18,7 @@ public class Jogo extends BacklogItem {
         super(nome, descricao, tag);
         this.plataforma = plataforma;
         this.desenvolvedora = desenvolvedora;
-        this.anoLancamento = anoLancamento;
+        setAnoLancamento(anoLancamento);
         this.setTipo("Jogo");
     }
     
@@ -39,6 +39,9 @@ public class Jogo extends BacklogItem {
         this.desenvolvedora = desenvolvedora;
     }
     public void setAnoLancamento(String anoLancamento) {
+        if (anoLancamento == null || !anoLancamento.matches("\\d{4}")) {
+            throw new IllegalArgumentException("Ano de lançamento inválido. Use o formato YYYY.");
+        }
         this.anoLancamento = anoLancamento;
     }
 

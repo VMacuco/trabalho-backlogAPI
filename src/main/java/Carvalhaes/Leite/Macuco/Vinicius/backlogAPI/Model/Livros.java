@@ -3,6 +3,8 @@ package Carvalhaes.Leite.Macuco.Vinicius.backlogAPI.Model;
 
 import java.util.List;
 
+// Representa um livro no backlog, herda os atributos de backlogItem
+
 public class Livros extends BacklogItem {
     private String autor; //autor do livro. Os autores podem ser: Rick Riordan, George R.R. Martin, etc.
     private String editora; //editora do livro. As editoras podem ser: Editora Abril, Editora Globo, etc.
@@ -18,7 +20,7 @@ public class Livros extends BacklogItem {
         super(nome, descricao, tag);
         this.autor = autor;
         this.editora = editora;
-        this.lingua = lingua;
+        setLingua(lingua);
         this.anoLancamento = anoLancamento;
         this.setTipo("Livro");
     }
@@ -45,6 +47,20 @@ public class Livros extends BacklogItem {
     }
 
     public void setAnoLancamento(String anoLancamento) {
+        if (anoLancamento == null || !anoLancamento.matches("\\d{4}")) {
+            throw new IllegalArgumentException("Ano deve estar no formato YYYY");
+        }
         this.anoLancamento = anoLancamento;
+    }
+
+    public void setLingua(String lingua) {
+        if (lingua == null || lingua.trim().isEmpty()) {
+            throw new IllegalArgumentException("Língua não pode ser vazia");
+        }
+        this.lingua = lingua;
+    }
+
+    public String getLingua() {
+        return lingua;
     }
 }
